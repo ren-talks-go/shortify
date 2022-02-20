@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<meta name="og:image" content="assets/logo.png"/>
+<style>
+  body {
+    margin:0;
+    background-color:rgb(236,236,236,0.5);
+    padding:0}
+    #nav{
+position:fixed;
+top:0;width:100%;
+background-color:#e6e6e6;height:6.1vh;border:2px solid transparent;border-bottom-color:#c5c5c5;overflow:hidden;
+animation:drag 2s;
+
+    }
+    #nav >img{
+    width:3em;
+    height:100%;
+    margin-right:3vw;
+  }@keyframes share{
+  from{
+  transform:translateY(-600px);
+  }to{
+transform:translateY(0px);
+  }
+}@keyframes drag{
+  from{
+    height:0;
+  }
+  to{
+    height:5.9vh;
+  }
+}
+p{
+  padding-left:20px;
+padding-right:20px;
+}.play{
+  width:100%;
+  border:2px solid lightgray;
+  height:190px;
+overflow:scroll;
+}.code{
+width:80%;
+border:10px solid lightgray;
+height:30vh;
+}h3{
+  font-size:1.4em;
+}
+.tap{
+  padding:0.5rem;
+  width:16rem;
+  background-color:#00f800;
+  color:white;
+  border:0;
+  border-radius:12px;
+  font-weight:bold;
+  font-size:1em;  
+text-decoration:none;
+}
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 20px black;
+    }
+    to {
+      text-shadow: 0 0 30px black, 0 0 10px black;
+    }
+  }
+  .input{
+  display:block;
+  padding:5px;
+  border-radius:10px;
+  margin-bottom:20px;
+  box-shadow:0 0 10px 4px black;
+  width:30%;
+  border:0;
+   font-size:1.2em;
+  }.short{
+  display:block;
+  padding:8px;
+  background-color:cyan;
+  font-weight:bold;
+  font-family:Monospace;
+  width:20%;
+  font-size:1.6em;
+  border-radius:5px;
+    box-shadow:0 0 5px 2px blue;
+  }
+  .short:hover{
+ font-size:2em:;
+ box-shadow:0 0 15px 8px cyan;
+  }
+</style>
+<meta property="og:title" content="Shortify by Ren Talks Go" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title>Shortify by Ren Talks Go</title>
+  </head>
+  <body>
+    <center>
+ <div style="margin-bottom:50px"></div>
+<img id="share"onclick="go_channel()" src="assets/logo.png"width="80vh"height="80vh"style="position:fixed;top:47vh;right:5vw;border-radius:50%;animation:share 5s"/>
+<div id="nav">
+<img src="assets/insta.png" onclick="window.location.href='https://instagram.com/rentalksgo'" />
+<img src="assets/paypal.png" onclick="window.location.href='https://paypal.me/renlowsphere1'" />
+<img src="assets/telegram.png" onclick="window.location.href='https://t.me/renlowsphere'" />
+<img src="assets/github.png" onclick="window.location.href='https://github.com/rentalksgo'" /></div>
+
+<img src="assets/pn.png"width="190vw"onclick="shorten()" height="40%"/><br/>
+<h2 style="font-size:2.2em;letter-spacing:7px;display:inline;animation: glow 2s ease-in-out infinite alternate;">
+Shortify 
+</h2><br/>
+<span style="font-size:1.1em">
+FREE URL shortner by 
+<i onclick="go_channel()"style=" color: red;  text-shadow: 1px 1px 1px #ccc;" class="fa fa-youtube-play">Ren Talks Go</i>
+</span><br>
+<h3>Link-الرابط</h3>
+<input placeholder="http://google.com" type="text"class="input"id="link"/>
+<br>
+<h3>Title - العنوان</h3>
+<input placeholder="My link's title" type="text"class="input"id="title"/>
+<br>
+<h3>Description - الوصف</h3>
+<textarea placeholder="A lot of paragraph but you can leave it empty" cols="50" rows="6" type="text"class="input"id="desc"></textarea>
+<br>
+<button onclick="shorten()"class="short">Shorten!</button>
+<script>
+function go_channel(){
+    window.open("https://www.youtube.com/channel/UC9hsUnCcX8ewbi6NhjDJPQw","_blank");
+    }
+    function shorten(){
+        link = document.getElementById("link").value;
+         title = document.getElementById("title").value;
+          desc = document.getElementById("desc").value;
+          if(link.length < 5){
+             swal.fire({
+title:"Input a valid link!",
+confirmButtonText:"Yes my lord"
+             });
+             return;
+      
+              }
+     if(title.length < 2){
+             swal.fire({
+title:"the Title is too short",
+confirmButtonText:"Yes!"
+             });
+             return;
+      
+              }
+$.ajax({
+    url:"http://shortify.is-best.net/short.php",
+    method:"POST",
+    data:{
+link:link,
+title:title,
+desc:desc
+    },
+    success: function(data){
+swal.fire({
+  title:"Success",
+  icon:"success",
+  text:"Your new link: "+data
+})
+    },
+    });
+    }
+</script>
+<br><br><br><Br>
+  </body>
+</html>
